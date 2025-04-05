@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>IRCTC AutoFill</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Passenger Details</h2>
+    <form id="passenger-form">
+        <label>Name: <input type="text" id="name"></label><br>
+        <label>Age: <input type="number" id="age"></label><br>
+        <label>Gender:
+            <select id="gender">
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+            </select>
+        </label><br>
+        <label>Berth Preference:
+            <select id="berth">
+                <option value="LB">Lower</option>
+                <option value="MB">Middle</option>
+                <option value="UB">Upper</option>
+            </select>
+        </label><br>
+        <button type="submit">Save</button>
+    </form>
+    <script src="popup.js"></script>
+</body>
+</html>
