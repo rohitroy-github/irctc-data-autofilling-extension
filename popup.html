@@ -2,21 +2,94 @@
 <html>
   <head>
     <title>IRCTC AutoFill</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
       body {
-        font-family: sans-serif;
-        padding: 1rem;
-        width: 200px;
+        padding: 0.8rem;
+        width: 250px;
+        background-color: #ffffff;
+        color: #111111;
       }
+
+      input,
+      select,
       button {
-        padding: 0.5rem;
         width: 100%;
-        font-weight: bold;
+        font-family: "Montserrat", sans-serif;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        box-sizing: border-box;
+        font-size: 11px;
+        background-color: #f9f9f9;
+        color: #111111;
+      }
+
+      input::placeholder,
+      select {
+        color: #666666;
+      }
+
+      button {
+        font-weight: 600;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      #save {
+        background-color: #444444;
+      }
+
+      #save:hover {
+        background-color: #222222;
+      }
+
+      #fill {
+        background-color: #888888;
+      }
+
+      #fill:hover {
+        background-color: #555555;
       }
     </style>
   </head>
+
   <body>
-    <button id="fill">Auto-Fill Form</button>
+    <input id="name" placeholder="Name" />
+    <input id="age" type="number" placeholder="Age" />
+
+    <select id="gender">
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+      <option value="T">Transgender</option>
+    </select>
+
+    <select id="berth">
+      <option value="LB">Lower</option>
+      <option value="MB">Middle</option>
+      <option value="UB">Upper</option>
+      <option value="SL">Side Lower</option>
+      <option value="SU">Side Upper</option>
+    </select>
+
+    <select id="food">
+      <option value="V">Veg</option>
+      <option value="N">Non Veg</option>
+      <option value="J">Jain</option>
+      <option value="F">Veg (Diabetic)</option>
+      <option value="G">Non Veg (Diabetic)</option>
+      <option value="D">No Food</option>
+    </select>
+
+    <button id="save">Save Data</button>
+    <button id="fill">Fill Data</button>
+
     <script src="popup.js"></script>
   </body>
 </html>
