@@ -41,7 +41,7 @@ chrome.storage.sync.get("passengerData", ({ passengerData }) => {
     ...passengerData,
   };
 
-  console.log("🚀 Auto-filling with data:", data);
+  console.log("🚀 Auto-filling with data:", data); // Checking purpose
 
   fillAngularAutoComplete(
     'input[placeholder="Name"][maxlength="16"]',
@@ -58,4 +58,6 @@ chrome.storage.sync.get("passengerData", ({ passengerData }) => {
     data.food
   );
   setValueAndDispatch('input[formcontrolname="mobileNumber"]', data.mobile);
+
+  console.log("✅ Data filled successfully!"); // Checking purpose
 });

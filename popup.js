@@ -1,12 +1,3 @@
-// document.getElementById("fill").addEventListener("click", async () => {
-//     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-//     chrome.scripting.executeScript({
-//       target: { tabId: tab.id },
-//       files: ["content.js"]
-//     });
-//   });
-  
-
 document.getElementById("save").addEventListener("click", () => {
   const saveButton = document.getElementById("save");
 
@@ -30,6 +21,7 @@ document.getElementById("save").addEventListener("click", () => {
       saveButton.textContent = "Save Data";
       saveButton.disabled = false;
     }, 2000);
+
   });
 });
 
