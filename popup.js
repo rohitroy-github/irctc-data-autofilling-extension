@@ -8,6 +8,8 @@
   
 
 document.getElementById("save").addEventListener("click", () => {
+  const saveButton = document.getElementById("save");
+
   const data = {
     name: document.getElementById("name").value,
     age: document.getElementById("age").value,
@@ -16,8 +18,16 @@ document.getElementById("save").addEventListener("click", () => {
     food: document.getElementById("food").value
   };
 
+  // Change button text instantly
+  saveButton.textContent = "Data Saved";
+  saveButton.disabled = true;
+
   chrome.storage.sync.set({ passengerData: data }, () => {
-    alert("✅ Data saved!");
+    // Optional: reset after 2 seconds
+    setTimeout(() => {
+      saveButton.textContent = "Save Data";
+      saveButton.disabled = false;
+    }, 2000);
   });
 });
 
