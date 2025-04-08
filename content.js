@@ -1,88 +1,61 @@
-// (function autofillPassengerDetails() {
-//     try {
-//       // Fill Name
-//       const nameInput = document.querySelector('input[placeholder="Name"]');
-//       if (nameInput) nameInput.value = "Rohit Roy";
+function setValueAndDispatch(selector, value) {
+  const el = document.querySelector(selector);
+  if (el) {
+    el.value = value;
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+    el.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+}
 
-//       // Fill Age
-//       const ageInput = document.querySelector('input[placeholder="Age"]');
-//       if (ageInput) ageInput.value = "23";
+function fillAngularAutoComplete(selector, value) {
+  const input = document.querySelector(selector);
+  if (!input) return console.warn("❗ Autocomplete input not found");
 
-//       // Select Gender
-//       const genderSelect = document.querySelector('select[formcontrolname="passengerGender"]');
-//       if (genderSelect) genderSelect.value = "M"; // M / F / T
+  const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+    window.HTMLInputElement.prototype,
+    "value"
+  ).set;
+  nativeInputValueSetter.call(input, value);
 
-//       // Select Country
-//       const countrySelect = document.querySelector('select[formcontrolname="passengerNationality"]');
-//       if (countrySelect) countrySelect.value = "IN"; // India
-
-//       // Select Berth Preference
-//       const berthSelect = document.querySelector('select[formcontrolname="passengerBerthChoice"]');
-//       if (berthSelect) berthSelect.value = "SL"; // LB / MB / UB / SL / SU
-
-//       // Select Catering Option
-//       const foodSelect = document.querySelector('select[formcontrolname="passengerFoodChoice"]');
-//       if (foodSelect) foodSelect.value = "N"; // V / N / J / F / G / D
-
-//       console.log("✅ Passenger details auto-filled!");
-//     } catch (err) {
-//       console.error("❌ Error auto-filling form:", err);
-//     }
-//   })();
+  // Dispatch input & keyboard events to trigger Angular's form control logic
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+  input.dispatchEvent(
+    new KeyboardEvent("keydown", { bubbles: true, key: "a" })
+  );
+  input.dispatchEvent(new Event("blur")); // Optional: trigger validation
+}
 
 chrome.storage.sync.get("passengerData", ({ passengerData }) => {
-  // Define default values
   const defaults = {
     name: "Rohit Roy",
     age: "23",
-    mobile: "7003275110",
     gender: "M",
     berth: "SL",
     food: "N",
-    nationality: "IN",
+    mobile: "7003275110",
   };
 
-  // Merge stored data with defaults (stored values overwrite defaults if present)
+  // ✅ Merge stored values with defaults
   const data = {
     ...defaults,
     ...passengerData,
   };
 
-  try {
-    const nameInput = document.querySelector('input[placeholder="Name"]');
-    if (nameInput) nameInput.value = data.name || defaults.name;
+  console.log("🚀 Auto-filling with data:", data);
 
-    const ageInput = document.querySelector('input[placeholder="Age"]');
-    if (ageInput) ageInput.value = data.age || defaults.age;
-
-    const genderSelect = document.querySelector(
-      'select[formcontrolname="passengerGender"]'
-    );
-    if (genderSelect) genderSelect.value = data.gender || defaults.gender;
-
-    const countrySelect = document.querySelector(
-      'select[formcontrolname="passengerNationality"]'
-    );
-    if (countrySelect)
-      countrySelect.value = data.nationality || defaults.nationality;
-
-    const berthSelect = document.querySelector(
-      'select[formcontrolname="passengerBerthChoice"]'
-    );
-    if (berthSelect) berthSelect.value = data.berth || defaults.berth;
-
-    const foodSelect = document.querySelector(
-      'select[formcontrolname="passengerFoodChoice"]'
-    );
-    if (foodSelect) foodSelect.value = data.food || defaults.food;
-
-    const mobileField = document.querySelector(
-      'input[name="mobileNumber"], input#mobileNumber'
-    );
-    if (mobileField) mobileField.value = data.mobile;
-
-    console.log("✅ Passenger details auto-filled");
-  } catch (err) {
-    console.error("❌ Error auto-filling form:", err);
-  }
+  fillAngularAutoComplete(
+    'input[placeholder="Name"][maxlength="16"]',
+    data.name
+  );
+  setValueAndDispatch('input[formcontrolname="passengerAge"]', data.age);
+  setValueAndDispatch('select[formcontrolname="passengerGender"]', data.gender);
+  setValueAndDispatch(
+    'select[formcontrolname="passengerBerthChoice"]',
+    data.berth
+  );
+  setValueAndDispatch(
+    'select[formcontrolname="passengerFoodChoice"]',
+    data.food
+  );
+  setValueAndDispatch('input[formcontrolname="mobileNumber"]', data.mobile);
 });
