@@ -13,10 +13,12 @@ document.getElementById("save").addEventListener("click", () => {
   const data = {
     name: document.getElementById("name").value,
     age: document.getElementById("age").value,
+    mobile: document.getElementById("mobile").value,
     gender: document.getElementById("gender").value,
     berth: document.getElementById("berth").value,
     food: document.getElementById("food").value
   };
+  
 
   // Change button text instantly
   saveButton.textContent = "Data Saved";
@@ -37,5 +39,9 @@ document.getElementById("fill").addEventListener("click", async () => {
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     files: ["content.js"]
+  }, () => {
+    const fillBtn = document.getElementById("fill");
+    fillBtn.textContent = "Data Filled";
+    setTimeout(() => fillBtn.textContent = "Fill Data", 1500);
   });
 });
