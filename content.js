@@ -1,34 +1,32 @@
-function fillPassengerDetails() {
-    chrome.storage.sync.get("passenger", function (data) {
-        if (data.passenger) {
-            const { name, age, gender, berth } = data.passenger;
-
-            const interval = setInterval(() => {
-                const nameField = document.querySelector("input[placeholder='Name']");
-                const ageField = document.querySelector("input[formcontrolname='passengerAge']");
-                const genderField = document.querySelector("select[formcontrolname='passengerGender']");
-                const berthField = document.querySelector("select[formcontrolname='passengerBerthChoice']");
-
-                if (nameField && ageField && genderField && berthField) {
-                    clearInterval(interval);
-
-                    nameField.value = name;
-                    nameField.dispatchEvent(new Event("input", { bubbles: true }));
-
-                    ageField.value = age;
-                    ageField.dispatchEvent(new Event("input", { bubbles: true }));
-
-                    genderField.value = gender; // Use "M", "F", or "T"
-                    genderField.dispatchEvent(new Event("change", { bubbles: true }));
-
-                    berthField.value = berth; // Like "SL", "SU", etc.
-                    berthField.dispatchEvent(new Event("change", { bubbles: true }));
-
-                    console.log("✅ IRCTC passenger details auto-filled!");
-                }
-            }, 500);
-        }
-    });
-}
-
-fillPassengerDetails();
+(function autofillPassengerDetails() {
+    try {
+      // Fill Name
+      const nameInput = document.querySelector('input[placeholder="Name"]');
+      if (nameInput) nameInput.value = "Rohit Roy";
+  
+      // Fill Age
+      const ageInput = document.querySelector('input[placeholder="Age"]');
+      if (ageInput) ageInput.value = "23";
+  
+      // Select Gender
+      const genderSelect = document.querySelector('select[formcontrolname="passengerGender"]');
+      if (genderSelect) genderSelect.value = "M"; // M / F / T
+  
+      // Select Country
+      const countrySelect = document.querySelector('select[formcontrolname="passengerNationality"]');
+      if (countrySelect) countrySelect.value = "IN"; // India
+  
+      // Select Berth Preference
+      const berthSelect = document.querySelector('select[formcontrolname="passengerBerthChoice"]');
+      if (berthSelect) berthSelect.value = "SL"; // LB / MB / UB / SL / SU
+  
+      // Select Catering Option
+      const foodSelect = document.querySelector('select[formcontrolname="passengerFoodChoice"]');
+      if (foodSelect) foodSelect.value = "N"; // V / N / J / F / G / D
+  
+      console.log("✅ Passenger details auto-filled!");
+    } catch (err) {
+      console.error("❌ Error auto-filling form:", err);
+    }
+  })();
+  
