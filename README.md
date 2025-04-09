@@ -18,8 +18,7 @@
 
 ## Snapshots
 
-| ![Popup UI](https://github.com/user-attachments/assets/sample-autofill-popup-1) | ![Form Auto-Filled](https://github.com/user-attachments/assets/sample-autofill-popup-2) |
-| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+![testshot](https://github.com/user-attachments/assets/f20401c9-2c12-4b98-afc6-b9ff633b1546)
 
 ---
 
