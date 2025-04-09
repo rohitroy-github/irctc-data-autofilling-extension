@@ -1,0 +1,23 @@
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Node / npm (if you add npm tooling)
+node_modules/
+dist/
+build/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment and config
+.env
+.env.local
+
+# VSCode and JetBrains IDE settings
+.vscode/
+.idea/
+
+# Rohit's files
+readMeRohit
