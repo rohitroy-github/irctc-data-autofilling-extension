@@ -1,34 +1,85 @@
-function fillPassengerDetails() {
-    chrome.storage.sync.get("passenger", function (data) {
-        if (data.passenger) {
-            const { name, age, gender, berth } = data.passenger;
+/**
+ * Sets a value to a form field and dispatches input & change events
+ * to trigger Angular's change detection and form updates.
+ */
+function setValueAndDispatch(selector, value) {
+  const el = document.querySelector(selector);
+  if (el) {
+    el.value = value;
 
-            const interval = setInterval(() => {
-                const nameField = document.querySelector("input[placeholder='Name']");
-                const ageField = document.querySelector("input[formcontrolname='passengerAge']");
-                const genderField = document.querySelector("select[formcontrolname='passengerGender']");
-                const berthField = document.querySelector("select[formcontrolname='passengerBerthChoice']");
-
-                if (nameField && ageField && genderField && berthField) {
-                    clearInterval(interval);
-
-                    nameField.value = name;
-                    nameField.dispatchEvent(new Event("input", { bubbles: true }));
-
-                    ageField.value = age;
-                    ageField.dispatchEvent(new Event("input", { bubbles: true }));
-
-                    genderField.value = gender; // Use "M", "F", or "T"
-                    genderField.dispatchEvent(new Event("change", { bubbles: true }));
-
-                    berthField.value = berth; // Like "SL", "SU", etc.
-                    berthField.dispatchEvent(new Event("change", { bubbles: true }));
-
-                    console.log("✅ IRCTC passenger details auto-filled!");
-                }
-            }, 500);
-        }
-    });
+    // Dispatch events so Angular reacts to the change
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+    el.dispatchEvent(new Event("change", { bubbles: true }));
+  }
 }
 
-fillPassengerDetails();
+/**
+ * Specifically handles Angular Material autocomplete input fields.
+ * Sets the value and dispatches events to mimic typing and blur behavior.
+ */
+function fillAngularAutoComplete(selector, value) {
+  const input = document.querySelector(selector);
+  if (!input) return console.warn("❗ Autocomplete input not found");
+
+  // Use the native setter to update input value programmatically
+  const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+    window.HTMLInputElement.prototype,
+    "value"
+  ).set;
+  nativeInputValueSetter.call(input, value);
+
+  // Dispatch events to mimic user interaction (Angular listens to these)
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+  input.dispatchEvent(
+    new KeyboardEvent("keydown", { bubbles: true, key: "a" })
+  );
+  input.dispatchEvent(new Event("blur")); // Triggers validations if any
+}
+
+// Fetch passenger data from Chrome storage and autofill the form
+chrome.storage.sync.get("passengerData", ({ passengerData }) => {
+  const defaults = {
+    name: "Rohit Roy",
+    age: "23",
+    gender: "M",
+    berth: "SL",
+    food: "N",
+    mobile: "7003275110",
+  };
+
+  // Merge stored data with defaults (fallback if any field is missing)
+  const data = {
+    ...defaults,
+    ...passengerData,
+  };
+
+  console.log("🚀 Auto-filling with data:", data); // Optional: dev debug
+
+  // Fill each field using appropriate method
+  fillAngularAutoComplete(
+    'input[placeholder="Name"][maxlength="16"]',
+    data.name
+  );
+  setValueAndDispatch('input[formcontrolname="passengerAge"]', data.age);
+  setValueAndDispatch('select[formcontrolname="passengerGender"]', data.gender);
+  setValueAndDispatch(
+    'select[formcontrolname="passengerBerthChoice"]',
+    data.berth
+  );
+  setValueAndDispatch(
+    'select[formcontrolname="passengerFoodChoice"]',
+    data.food
+  );
+  setValueAndDispatch('input[formcontrolname="mobileNumber"]', data.mobile);
+
+  // ✅ Check the "autoUpgradation" checkbox if not already checked
+  const checkbox = document.querySelector(
+    'input[formcontrolname="autoUpgradationSelected"]'
+  );
+  if (checkbox && !checkbox.checked) {
+    checkbox.checked = true;
+    checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+  }
+
+  console.log("✅ Data filled successfully!"); // Optional: dev debug
+});

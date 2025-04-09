@@ -1,29 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
     <title>IRCTC AutoFill</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h2>Passenger Details</h2>
-    <form id="passenger-form">
-        <label>Name: <input type="text" id="name"></label><br>
-        <label>Age: <input type="number" id="age"></label><br>
-        <label>Gender:
-            <select id="gender">
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-            </select>
-        </label><br>
-        <label>Berth Preference:
-            <select id="berth">
-                <option value="LB">Lower</option>
-                <option value="MB">Middle</option>
-                <option value="UB">Upper</option>
-            </select>
-        </label><br>
-        <button type="submit">Save</button>
-    </form>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+      body {
+        padding: 0.8rem;
+        width: 250px;
+        background-color: #ffffff;
+        color: #111111;
+      }
+
+      input,
+      select,
+      button {
+        width: 100%;
+        font-family: "Montserrat", sans-serif;
+        margin-bottom: 0.5rem;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        box-sizing: border-box;
+        font-size: 11px;
+        background-color: #f9f9f9;
+        color: #111111;
+      }
+
+      input::placeholder,
+      select {
+        color: #666666;
+      }
+
+      button {
+        font-weight: 600;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      #save {
+        background-color: #444444;
+      }
+
+      #save:hover {
+        background-color: #222222;
+      }
+
+      #fill {
+        background-color: #888888;
+      }
+
+      #fill:hover {
+        background-color: #555555;
+      }
+
+      #clear {
+        background-color: #888888;
+      }
+
+      #clear:hover {
+        background-color: #555555;
+      }
+    </style>
+  </head>
+
+  <body>
+    <input id="name" placeholder="Name" />
+    <input id="age" type="number" placeholder="Age" />
+    <input id="mobile" type="text" placeholder="Mobile Number" maxlength="10" />
+
+    <select id="gender">
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+      <option value="T">Transgender</option>
+    </select>
+
+    <select id="berth">
+      <option value="LB">Lower</option>
+      <option value="MB">Middle</option>
+      <option value="UB">Upper</option>
+      <option value="SL">Side Lower</option>
+      <option value="SU">Side Upper</option>
+    </select>
+
+    <select id="food">
+      <option value="V">Veg</option>
+      <option value="N">Non Veg</option>
+      <option value="J">Jain</option>
+      <option value="F">Veg (Diabetic)</option>
+      <option value="G">Non Veg (Diabetic)</option>
+      <option value="D">No Food</option>
+    </select>
+
+    <button id="fill">Fill Data</button>
+
+    <div style="display: flex; gap: 0.5rem">
+      <button id="save" style="flex: 1">Save Data</button>
+      <button id="clear" style="flex: 1">Clear Data</button>
+    </div>
+    
+
     <script src="popup.js"></script>
-</body>
+  </body>
 </html>

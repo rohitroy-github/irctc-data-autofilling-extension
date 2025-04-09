@@ -1,19 +1,18 @@
 {
-    "manifest_version": 3,
-    "name": "IRCTC AutoFill",
-    "version": "1.0",
-    "description": "Auto-fills passenger details on IRCTC",
-    "permissions": ["storage", "activeTab", "scripting"],
-    "host_permissions": ["https://www.irctc.co.in/*"],
-    "action": {
-      "default_popup": "popup.html",
-      "default_icon": "icon.png"
-    },
-    "content_scripts": [
-      {
-        "matches": ["https://www.irctc.co.in/*"],
-        "js": ["content.js"]
-      }
-    ]
-  }
-  
+  "manifest_version": 3,
+  "name": "IRCTC AutoFill",
+  "version": "2.5",
+  "description": "Auto-fills passenger details on IRCTC",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["https://www.irctc.co.in/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.irctc.co.in/nget/booking/psgninput"],
+      "js": ["content.js"]
+    }
+  ]
+}
