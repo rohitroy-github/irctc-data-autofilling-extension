@@ -57,6 +57,14 @@
       #fill:hover {
         background-color: #555555;
       }
+
+      #clear {
+        background-color: #888888;
+      }
+
+      #clear:hover {
+        background-color: #555555;
+      }
     </style>
   </head>
 
@@ -88,8 +96,13 @@
       <option value="D">No Food</option>
     </select>
 
-    <button id="save">Save Data</button>
     <button id="fill">Fill Data</button>
+
+    <div style="display: flex; gap: 0.5rem">
+      <button id="save" style="flex: 1">Save Data</button>
+      <button id="clear" style="flex: 1">Clear Data</button>
+    </div>
+    
 
     <script src="popup.js"></script>
   </body>
