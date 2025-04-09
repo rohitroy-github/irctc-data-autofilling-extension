@@ -1,4 +1,4 @@
-# IRCTC AutoFill
+# IRCTC Data Autofilling Chrome Extension
 
 **IRCTC AutoFill** is a lightweight Chrome Extension designed to automatically fill passenger details on the IRCTC booking website. It stores frequently used data and fills it with a single click — saving time during ticket booking.
 
